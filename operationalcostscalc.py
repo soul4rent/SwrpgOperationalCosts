@@ -8,9 +8,10 @@ hyperUses = 20 #hyperspace uses total (before bad things happen)
 spentHyper = 0 #spent hyperspace uses
 hyperCalc = 0 #fuel spent in hyperspace jumps
 maintainEvents = 0 #maintainence events add up to equal maintainence hours over time (5 per hour)
-maintainHours = 0
+#maintainHours = 0
 portGrade = 1 #how good the port is (higher grade = more popular port)
 portFuelCosts = [15, 25, 25, 30, 40] #fuel costs per cell
+portPartCosts = [15, 15, 20, 25, 0] #parts not guaranteed at tier 5 ports
 
  
 #tk window stuff
@@ -149,18 +150,21 @@ def IncM():
     maintainEvents += 1
     mEventsDisplay.configure(text="M. Events: "+str(maintainEvents))
     mHoursDisplay.configure(text="M. Hours: "+str(int(maintainEvents/5)))
+    mCostDisplay.configure(text="Parts Cost: "+str(portPartCosts[portGrade-1]*int(maintainEvents/5)))
 
 def DecM():
     global maintainEvents
     maintainEvents -= 1
     mEventsDisplay.configure(text="M. Events: "+str(maintainEvents))
     mHoursDisplay.configure(text="M. Hours: "+str(int(maintainEvents/5)))
+    mCostDisplay.configure(text="Parts Cost: "+str(portPartCosts[portGrade-1]*int(maintainEvents/5)))
 
 def ResM():
     global maintainEvents
     maintainEvents = 0
     mEventsDisplay.configure(text="M. Events: "+str(maintainEvents))
     mHoursDisplay.configure(text="M. Hours: "+str(int(maintainEvents/5)))
+    mCostDisplay.configure(text="Parts Cost: "+str(portPartCosts[portGrade-1]*int(maintainEvents/5)))
     
 
 decMEventsButton = Button(window, text="-", command=DecM)
@@ -191,6 +195,7 @@ def IncPort():
         portGrade += 1
     portGradeDisplay.configure(text="Port Grade: "+str(portGrade))
     fuelCostDisplay.configure(text="Refuel Cost: "+str(portFuelCosts[portGrade-1]*(shipFuel-shipFuelRemain)))
+    mCostDisplay.configure(text="Parts Cost: "+str(portPartCosts[portGrade-1]*int(maintainEvents/5)))
 
 def DecPort():
     global portGrade
@@ -198,6 +203,7 @@ def DecPort():
         portGrade -= 1
     portGradeDisplay.configure(text="Port Grade: "+str(portGrade))
     fuelCostDisplay.configure(text="Refuel Cost: "+str(portFuelCosts[portGrade-1]*(shipFuel-shipFuelRemain)))
+    mCostDisplay.configure(text="Parts Cost: "+str(portPartCosts[portGrade-1]*int(maintainEvents/5)))
 
 
 decPortButton = Button(window, text="-", command=DecPort)
@@ -211,13 +217,14 @@ incPortButton.grid(column=2, row=20)
 
 
 
-
-
-
 #====================================
 #cost displays
 fuelCostDisplay = Label(window, text="Refuel Cost: "+str(portFuelCosts[portGrade-1]*(shipFuel-shipFuelRemain)))
 fuelCostDisplay.grid(column=0, row=21)
+
+#parts cost vary depending on port, multiply by needed hours of maintainence
+mCostDisplay = Label(window, text="Parts Cost: "+str(portPartCosts[portGrade-1]*int(maintainEvents/5)))
+mCostDisplay.grid(column=0, row=22)
 
  
 window.mainloop()
