@@ -217,7 +217,7 @@ incPortButton.grid(column=2, row=20)
 #====================================
 #cost displays
 fuelCostDisplay = Label(window, text="Refuel Cost: "+str(portFuelCosts[portGrade-1]*(shipFuel-shipFuelRemain)))
-fuelCostDisplay.grid(column=0, row=15)
+fuelCostDisplay.grid(column=0, row=21)
 
  
 window.mainloop()
