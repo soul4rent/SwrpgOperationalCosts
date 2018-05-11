@@ -18,7 +18,7 @@ portPartCosts = [15, 15, 20, 25, 0] #parts not guaranteed at tier 5 ports
 window = Tk()
  
 window.title("Operational Costs")
-window.geometry('400x500')
+window.geometry('400x300')
 
 
 #Hyperspace Fuel Calculations (Higher in window)
