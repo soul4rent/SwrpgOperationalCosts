@@ -173,15 +173,30 @@ decMEventsButton.grid(column=0, row=12)
 mEventsDisplay = Label(window, text="M. Events: "+str(maintainEvents))
 mEventsDisplay.grid(column=1, row=12)
 
-mHoursDisplay = Label(window, text="M. Hours: "+str(int(maintainEvents/5)))
-mHoursDisplay.grid(column=1, row=13)
-
 incMEventsButton = Button(window, text="+", command=IncM)
 incMEventsButton.grid(column=2, row=12)
 
 resMEventsButton = Button(window, text="Reset", command=ResM)
 resMEventsButton.grid(column=3, row=12)
 
+
+def IncMHours():
+    for i in range (0,5): #if noticeable, just manually increment maintainEvents
+        IncM()
+
+def DecMHours():
+    for i in range (0,5): #if noticeable, just manually decrement maintainEvents
+        DecM()
+
+
+decMHoursButton = Button(window, text="-", command=DecMHours)
+decMHoursButton.grid(column=0, row=13)
+
+mHoursDisplay = Label(window, text="M. Hours: "+str(int(maintainEvents/5)))
+mHoursDisplay.grid(column=1, row=13)
+
+incMHoursButton = Button(window, text="+", command=IncMHours)
+incMHoursButton.grid(column=2, row=13)
 
 #==================================
 secondDivider = Label(window, text="-------")
