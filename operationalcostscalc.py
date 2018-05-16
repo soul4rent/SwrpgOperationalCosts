@@ -181,12 +181,18 @@ resMEventsButton.grid(column=3, row=12)
 
 
 def IncMHours():
-    for i in range (0,5): #if noticeable, just manually increment maintainEvents
-        IncM()
+    global maintainEvents
+    maintainEvents += 5 #each maintaince hour is 5 maintainence events
+    mEventsDisplay.configure(text="M. Events: "+str(maintainEvents))
+    mHoursDisplay.configure(text="M. Hours: "+str(int(maintainEvents/5)))
+    mCostDisplay.configure(text="Parts Cost: "+str(portPartCosts[portGrade-1]*int(maintainEvents/5))) #part costs change depending on port grade
 
 def DecMHours():
-    for i in range (0,5): #if noticeable, just manually decrement maintainEvents
-        DecM()
+    global maintainEvents
+    maintainEvents -= 5 #each maintaince hour is 5 maintainence events
+    mEventsDisplay.configure(text="M. Events: "+str(maintainEvents))
+    mHoursDisplay.configure(text="M. Hours: "+str(int(maintainEvents/5)))
+    mCostDisplay.configure(text="Parts Cost: "+str(portPartCosts[portGrade-1]*int(maintainEvents/5))) #part costs change depending on port grade
 
 
 decMHoursButton = Button(window, text="-", command=DecMHours)
