@@ -1,17 +1,18 @@
 from tkinter import *
 import math
+import ShipDataReader as sdr
 
 #various globals (tiny one window application means using global variables not THAT bad. Makes code arguably more readable.)
-shipFuel = 60
-shipFuelRemain = 60
-hyperUses = 20 #hyperspace uses total (before bad things happen)
+hyperDriveClass = sdr.getShipHyperdriveClass() #How fast hyperdrive travels. Higher the class, slower it goes.
+shipFuel = sdr.getShipFuel()
+shipFuelRemain = sdr.getShipFuel()
+hyperUses = sdr.getShipHyperdriveUses() #hyperspace uses total (before bad things happen)
 spentHyper = 0 #spent hyperspace uses
-hyperCalc = 0 #fuel spent in hyperspace jumps
+hyperCalc = 0 #used to keep track of fuel spent in hyperspace jumps
 maintainEvents = 0 #maintainence events add up to equal maintainence hours over time (5 per hour)
-#maintainHours = 0
 portGrade = 1 #how good the port is (higher grade = more popular port)
-portFuelCosts = [15, 25, 25, 30, 40] #fuel costs per cell
-portPartCosts = [15, 15, 20, 25, 0] #parts not guaranteed at tier 5 ports
+portFuelCosts = sdr.getPortFuelCosts() #fuel costs per cell
+portPartCosts = sdr.getPartCosts() #parts not guaranteed at tier 5 ports
 
  
 #tk window stuff
@@ -21,7 +22,7 @@ window.title("Operational Costs")
 window.geometry('400x300')
 
 
-#Hyperspace Fuel Calculations (Higher in window)
+#Hyperspace Fuel Calculations Display/Buttons
 
 baseTimePrompt = Label(window, text="Squares Traveled")
 baseTimePrompt.grid(column=0, row=0)
@@ -41,10 +42,14 @@ modTimeEntry.grid(column=1, row=1)
 #Calculate and display hyperspace fuel costs
 def HyperCalc():
     global hyperCalc #made global var so others can use it
-    hyperCalc = float(baseTimeEntry.get())*4
+    hyperCalc = float(baseTimeEntry.get())*4*hyperDriveClass
     #24 hours per square, 1 fuel cell spent per 6 hours of hyperspace travel
-    hyperCalc = math.ceil(hyperCalc - (hyperCalc*float(modTimeEntry.get()))) #calculations NOT in player's favor (tiny jumps take minimum of 1 fuel)
+    #This is for a class 1 hyperdrive though. Class 2 is 2x slower, class 3 is 3x, etc.
+
+    hyperCalc = math.ceil(hyperCalc - (hyperCalc*float(modTimeEntry.get())))
     #add fuel cost modifiers.
+    #calculations NOT in player's favor (tiny jumps take minimum of 1 fuel)
+    
 
     res = "Spent Fuel: " + str(hyperCalc) 
     spentFuelDisplay.configure(text=res)
