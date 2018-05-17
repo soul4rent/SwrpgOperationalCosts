@@ -1,0 +1,3 @@
+Hyperdrive 2
+ShipFuel 60
+ShipHyperdriveUses 20
