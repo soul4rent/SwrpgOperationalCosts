@@ -252,5 +252,12 @@ fuelCostDisplay.grid(column=0, row=21)
 mCostDisplay = Label(window, text="Parts Cost: "+str(portPartCosts[portGrade-1]*int(maintainEvents/5)))
 mCostDisplay.grid(column=0, row=22)
 
+
+#====================================
+
+
+
  
 window.mainloop()
+
+
