@@ -108,7 +108,7 @@ def calculateBuyPrice():
 calculateBuyPriceBtn = Button(window, text="Calculate Price", command=calculateBuyPrice)
 calculateBuyPriceBtn.grid(column=0, row=15)
 
-buyPriceLabel = Label(window, text="Sell Price:")
+buyPriceLabel = Label(window, text="Buy Price:")
 buyPriceLabel.grid(column=2, row=15)
 
 buyPriceDisplay = Label(window, text="---")
